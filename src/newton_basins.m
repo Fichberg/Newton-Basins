@@ -177,35 +177,4 @@ function [polynomial, delta, output, width, heigth, max] = arguments(args)
   endif
 endfunction
 
-
-
-
-
-function matrix = initialize_m()
-  matrix = [];
-endfunction
-
-function matrix = insert_m(matrix, integer, root)
-  matrix = [matrix; [integer, root]];
-endfunction
-
-function row = lookup_m(matrix, root, delta)
-  for index = 1:rows(x)
-    # Element of row == index and column == 2
-    if matrix(index, [,2]) == root
-      row = matrix([index], [1,2])
-    endif
-  endfor
-  row = [];
-endfunction
-
-
-
-
-
-
-
-
-
-
 main(argv());
