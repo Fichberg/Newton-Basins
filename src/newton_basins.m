@@ -13,7 +13,7 @@ function convergences = newton_basins(f, width, height, delta, max)
   fder = polyder(f);
 
   # This, the image dimensions, represents the function domain
-  columns = -width:step:width;
+  cols = -width:step:width;
   lines = -height:step:height;
 
   # Each root will be associated to an integer.
@@ -28,9 +28,11 @@ function convergences = newton_basins(f, width, height, delta, max)
   # Matrix with each row in the format [pixel_x_coord, pixel_y_coord, associated_integer]
   convergences = [];
 
-  printf("Writing output. This is a good time to grab yourself a coffee...\n");
-  for pixel_x_coord = columns
+  current = 1;
+  printf("Building output. This is a good time to grab yourself a coffee...\n");
+  for pixel_x_coord = cols
     for pixel_y_coord = lines
+      waitbar((1.0 * current++) / (1.0 * columns(cols) * columns(lines)));
       [x_r, y_i] = newton(f, fder, (pixel_x_coord + (pixel_y_coord * i)), delta, max);
 
       # Method failed. Associate pixel to the integer zero
@@ -39,10 +41,7 @@ function convergences = newton_basins(f, width, height, delta, max)
       # Method got an answer
       else
         for row_index = 1:rows(roots)
-          #lower_limit = abs(roots(row_index, 1:3)(1) + (roots(row_index, 1:3)(2) * i)) - delta;
-          #upper_limit = abs(roots(row_index, 1:3)(1) + (roots(row_index, 1:3)(2) * i)) + delta;
           # If the roots are really close, they must be associated to the same integer
-          #if abs(x_r + (y_i * i)) <= upper_limit && abs(x_r + (y_i * i)) >= lower_limit
           if abs(x_r - roots(row_index, 1:3)(1)) <= delta && abs(y_i - roots(row_index, 1:3)(2)) <= delta
             convergences = [convergences; [pixel_x_coord, pixel_y_coord, roots(row_index, 1:3)(3)]];
             break;
