@@ -7,6 +7,7 @@
 \usepackage[a4paper,margin={1in}]{geometry}
 \usepackage{graphicx}
 \usepackage{color}
+\usepackage{tikz}
 \definecolor{warning}{rgb}{0.8, 0, 0}
 
 \renewcommand{\baselinestretch}{1.5}
@@ -18,7 +19,7 @@
 \centerline{
   \begin{minipage}[t]{5in}
     \begin{center}
-    {\Large \bf README - EP1}
+    {\Large \bf RELATÓRIO - EP1}
     \vsp \\
   {\large Renan Fichberg - {\bf NUSP:} 7991131}\\
 	{\small Laboratório de Métodos Numéricos - MAC0210 - 2016/1}\\
@@ -30,6 +31,7 @@
 \vsp
 
 %============================================================
+\pagebreak
 
 \section{Arquivos}
 
@@ -172,7 +174,7 @@ Para chegar nestes valores os seguintes passos foram realizados:
 \textbf{2)} 1 + $ 2^{-24} $
 
 O programa não recebe números neste formato, portanto, precisamos reescrevê-lo para a entrada:
-$ 2^{-24} $ = $ 5.9605 $ x $10^{-8} $ = 0.0000000059605
+$ 2^{-24} $ = $ 5.9605 \times 10^{-8} $ = 0.0000000059605
 
 Agora são passados os números 1, 0.0000000059605 e +, nesta ordem, para o programa, que imprime de saída:
 
@@ -202,7 +204,7 @@ Para chegar nestes valores os seguintes passos foram realizados:
   \end{itemize}
   \item Temos que {\small$1  = [ 0 | 0 1 1 1 1 1 1 1 | 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ] $}
   \item Repetimos os passos para $0.0000000059605 = (0.00...000110011001100110100011100...)_2$, com 28 zeros entre o primeiro \textit{bit} 1 e o ponto flutuante. O que significa que após sucessivas vinte e oito operações
-  de \textit{shift}, obtemos $ (1.10011001100110100011100...)_2 $ x $ 2^{-28} $. Com isso, temos nosso significando e o expoente E = -28, que será registrado na \textit{bit string} com o valor de 127 - 28 = 99 = $ (01100011)_2 $.
+  de \textit{shift}, obtemos $ (1.10011001100110100011100...)_2 \times 2^{-28} $. Com isso, temos nosso significando e o expoente E = -28, que será registrado na \textit{bit string} com o valor de 127 - 28 = 99 = $ (01100011)_2 $.
   Temos, portanto, {\small$0.0000000059605 = [ 0 | 0 1 1 0 0 0 1 1 | 1 0 0 1 1 0 0 1 1 0 0 1 1 0 1 0 0 0 1 1 1 0 0 ] $}
   \item Comparamos os expoentes e notamos que são diferentes. Alinhamos o menor (99) com o maior (127), realizando 127 - 99 = 28 operações de \textit{shift} para a direita, a qual inevitavelmente perdemos \textit{bits} 1, ligando
   portanto o \textit{sticky bit}. Após todos os \textit{shifts}, temos os \textit{bits} de guarda "00". Deste modo, logo após o último \textit{bit} do nosso significando, temos os \textit{bits} "001".
@@ -211,11 +213,11 @@ Para chegar nestes valores os seguintes passos foram realizados:
   \item Agora fazemos os arredondamentos seguindo o que foi já foi explicado na seção anterior e obtemos os valores impressos acima.
 \end{enumerate}
 
-\textbf{3)} (1.0)$_2 $ x 2$^0$ - (1.11111111111111111111111)$_2$ x $2^{-1} $
+\textbf{3)} (1.0)$_2  \times $ 2$^0$ - (1.11111111111111111111111)$_2 \times 2^{-1} $
 
 O programa não recebe números neste formato, portanto, precisamos reescrever as entradas:
-$(1.11111111111111111111111)_2$ x $2^{-1} = (0.111111111111111111111111)_2$ e
-(1.0)$_2 $ x 2$^0 = (1.0)_2$
+$(1.11111111111111111111111)_2 \times 2^{-1} = (0.111111111111111111111111)_2$ e
+(1.0)$_2  \times $ 2$^0 = (1.0)_2$
 
 Agora são passados os números 1b, 0.111111111111111111111111b e a operação -, nesta ordem, para o programa, que imprime de saída:
 
@@ -241,10 +243,10 @@ Para chegar nestes valores os seguintes passos foram realizados:
   \item Em seguida fazemos os arredondamentos seguindo o que foi já foi explicado na seção anterior e obtemos os valores impressos acima.
 \end{enumerate}
 
-\textbf{4)} 1.0 - (1.00000000000000000000001)$_2$ x $2^{-25} $
+\textbf{4)} 1.0 - (1.00000000000000000000001)$_2 \times 2^{-25} $
 
 O programa não recebe números neste formato, portanto, precisamos reescrever a entrada:
-(1.00000000000000000000001)$_2$ x $2^{-25} = (0.000000000000000000000000100000000000000000000001)_2 $
+(1.00000000000000000000001)$_2 \times 2^{-25} = (0.000000000000000000000000100000000000000000000001)_2 $
 
 Agora são passados os números 1, 0.000000000000000000000000100000000000000000000001b e a operação -, nesta ordem, para o programa, que imprime de saída:
 
@@ -273,10 +275,106 @@ Para chegar nestes valores os seguintes passos foram realizados:
 \section{Observações Finais da parte 1}
 
 \indent\indent São considerados \textbf{apenas} números \textit{normalizados} na entrada e nos resultados, portanto, números como o zero estão fora do escopo da implementação. Tentar forçar
-operações a resultar em números que seriam representados como subnormais pode (e deve) resultar em um comportamento não esperado.
+operações a resultar em números que seriam representados como subnormais pode (e deve) resultar
+\section{Parte 2: Bacias de Newton}
 
-Os números só serão reconhecidos nos \textbf{formatos apontados} nesta documentação. Entradas como 1x2\textasciicircum(-10) não funcionarão.
+\indent\indent Esta seção e todas as sucessivas abordarão sobre o assunto relativo à segunda parte do Exercício Programa 1, referente às Bácias de Newton.
 
-\indent\indent
+\subsection{Entradas}
+
+\indent\indent Diferentemente da primeira parte do Exercício Programa 1, esta parte pode receber vários parâmetros pela interface de linha de comando (CLI), sendo
+apenas um mandatório. A seguir é apresentada a invocação e uma lista com as possíveis opções:
+
+\begin{verbatim}
+  $ ./newton_basins.m -p A1 [-d A2 -m A3 -o A4 -w A5 -h A6]
+\end{verbatim}
+
+\begin{itemize}
+  \item \textbf{-p}: parâmetro \textbf{mandatório}. O parâmetro -p serve para alimentar o programa com um polinomio A1. \textit{A1 deve ser uma lista de números inteiros, começando com $a_n$, coeficiente do termo
+  de maior grau, e terminando com $a_0$, coeficiente do termo independente}. A razão de aceitar apenas funções que sejam polinômios de coeficientes inteiros é meramente por questões de simplicidade na hora de filtrar os argumentos,
+  uma vez que o enunciado não faz qualquer menção acerca da natureza das funções e portanto não deve ser encarado como um problema limitar o enunciado para polinômios específicos. É conhecido que o método de Newton-Raphson é
+  aplicável para outros tipos de funções, não necessariamente polinomiais, mas aqui nos limitaremos a polinômios de coeficientes inteiros.
+  \item \textbf{-d}: parâmetro \textbf{opcional}. O parâmetro -d serve para alimentar o programa com um valor de precisão. Este valor será usado em duas instâncias: como forma de dar-se por satisfeito com um valor encontrado
+  ao aplicar o método de Newton-Raphson sucessivas vezes e posteriormente como forma de associar valores encontrados pelo método de Newton-Raphson suficientemente próximos a um mesmo número inteiro para a computação gráfica das
+  bacias de convergência. \textit{A2 deve ser um número inteiro positivo $Z$. O programa considerará o valor de precisão $\delta$, mantido pela variável 'delta', como $\delta = 10^{-Z}$}. Se nenhum valor for passado,
+  será usado $\delta_{default} = 10^{-8}$.
+  \item \textbf{-m}: parâmetro \textbf{opcional}. O parâmetro -m serve para indicar o número máximo M de iterações que o método de Newton-Raphson deve realizar. Se ao realizar M iterações o método falhar em conseguir uma aproximação
+  que satisfaça o valor de $\delta$ (isto é, o módulo da diferença entre o valor encontrado e o último valor encontrado ser menor ou igual o valor de $\delta$), o ponto em questão será associado ao inteiro 0, cujo a única função
+  é justamente apontar os pontos \textit{(x, y)} que falharam (coordenadas de um ponto P imaginário, P = x + y\textit{i}). \textit{A3 deve ser um número inteiro positivo}.  Se nenhum valor for passado,
+  será usado $M_{default} = 25$.
+  \item \textbf{-o}: parâmetro \textbf{opcional}. O parâmetro -o serve para mudar o nome do arquivo de escrita da saída. Três considerações devem ser feitas ao usar este parâmetro:
+    \begin{enumerate}
+      \item O arquivo deverá estar contido em algum lugar \textbf{a partir do diretório 'src'.}
+      \item Todos os diretórios devem ter sido criados \textbf{antes de rodar o programa}. O programa \textbf{não} criará eventuais diretórios que compoem o nome da entrada (que é um \textit{caminho relativo ao diretório src}).
+      \item Não comece escrevendo o nome do arquivo com o caracter ``/". Uma entrada ``output.txt" ira considerar o arquivo src/output.txt, enquanto uma entrada ``/output.txt" deverá causar um erro (pois tentaria achar o
+      arquivo ``src//output.txt").
+    \end{enumerate}
+    \textit{A4 deve ser o caminho relativo do arquivo de saída a ser escrito em .txt ao diretório /src}. Se nenhum parâmetro for passado, o arquivo de saída se chamará \textit{output.txt}, conforme exigência do enunciado, e \textit{
+    poderá ser encontrado em /src/outputs}.
+  \item \textbf{-w}: parâmetro \textbf{opcional}. O parâmetro -w serve para indicar o intervalo das abcissas dos pontos P = x + y\textit{i} do plano complexo. \textit{A5 deve ser um número inteiro e positivo}. Quanto maior for este parâmetro, mais
+  demorará para escrever a saída. Se nenhum valor for passado, será usado $W_{default} = 3$.
+  \item \textbf{-h}: parâmetro \textbf{opcional}. O parâmetro -h serve para indicar o intervalo das ordenadas dos pontos P = x + y\textit{i} do plano complexo. \textit{A6 deve ser um número inteiro e positivo}. Quanto maior for este parâmetro, mais
+  demorará para escrever a saída. Se nenhum valor for passado, será usado $H_{default} = 3$.
+\end{itemize}
+
+\textbf{Obs}: Os \textit{steps} estão definidos internamente no programa como 0.01. Ao calcular os pontos, o programa vai varrer uma área de tamanho $2(A5) \times 2(A6)$, caminhando de 0.01 em 0.01 \textbf{em cada uma das duas dimensões}, e
+é por isso que valores de w e h afetam diretamente o quanto vai demorar para escrever a saída. A razão de A5 e A6 terem um fator 2 de multiplicação é que os intervalos serão [-A5, A5] e [-A6, A6], e portanto a área retangular da imagem é
+$[-A5, A5] \times [-A6, A6] = (A5 - (-A5)) \times (A6 - (-A6)) = 2(A5) \times 2(A6)$.
+
+\subsection{Aplicação do Método de Newton-Raphson}
+
+\indent\indent O método de Newton-Raphson foi aplicado no programa da seguinte maneira: são considerados os valores $\delta$ de precisão e M de máximo de iterações como condições de parada de \textit{loop}, de tal forma que:
+\begin{enumerate}
+  \item Se o número máximo de iterações M for atingido, o método é tido como falho e a raíz retornada é X = $\infty + \infty$\textit{i} (que posteriormente será associada ao inteiro 0 na função \textit{newton\_basins})
+  \item Se o módulo da diferença entre o valor encontrado e o valor atual for inferior ou igual ao valor de $\delta$, a aproximação será considerada suficientemente precisa e o método retornará as componentes real e imaginária de X
+  encontradas, terminando o método antes que o valor M de iterações fosse alcançado (e evitando, portanto, associar o ponto passado no parâmetro da função do método ao inteiro 0 posteriormente na função \textit{newton\_basins}).
+  \item Ainda, se a derivada no ponto passado tiver valor zero, o método também é encerrado e tido como falho, retornando o mesmo valor descrito no item 1.
+\end{enumerate}
+
+Foi implementada uma versão \textit{iterativa} (ao invés de uma recursiva) do método. Finalmente, sempre que uma nova iteração começa, o X encontrado na última iteração se torna o X atual, e um novo X é encontrado usando o X atual,
+conforme esperado do método.
+
+\subsection{Imagens de algumas Bacias de Newton}
+
+\indent\indent A seguir algumas imagens, obtidas com o uso do GNU Plot, versão 4.6 patchlevel 6 para Linux de 64bits (Debian 8). O \textit{script} /src/outputs/plot\_debian8.gp é uma modificação do \textit{script} fornecido
+pelo professor quando o mesmo ministrou MAC0210 - Laboratório de Métodos Numéricos em 2016/2 e serve para gerar as imagens a partir das saídas (no Debian 8. O original dava erro). Ao rodar o \textit{script}, ele deverá
+gerar a imagem relativa ao arquivo nomeado "output.txt". Se o arquivo estiver com outro nome, basta fazer a modificação no \textit{script}.
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[scale=0.5]{1}
+    \caption{Bacia de Convergência do polinômio P(x) = x$^8$ + 15x$^4$ -16}
+    \vsp\vsp
+    \includegraphics[scale=0.5]{2}
+    \caption{Bacia de Convergência do polinômio P(x) = x$^4$ -1}
+  \end{center}
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[scale=0.45]{3}
+    \caption{Bacia de Convergência do polinômio P(x) = x$^8$ - 17x$^4$+16}
+    \vsp\vsp
+    \includegraphics[scale=0.45]{4}
+    \caption{Bacia de Convergência do polinômio P(x) = x$^3$ -1}
+  \end{center}
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[scale=0.42]{5}
+    \caption{Bacia de Convergência do polinômio P(x) = 4x$^{10}$ -16x$^5$ +18}
+    \vsp\vsp
+    \includegraphics[scale=0.42]{6}
+    \caption{Bacia de Convergência do polinômio P(x) = 6x$^{16}$ + 36x$^8$ -1}
+  \end{center}
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[scale=0.5]{7}
+    \caption{Bacia de Convergência do polinômio P(x) = x$^{13}$ -2x$^{12}$ + 3x$^{11}$ -4x$^{10}$ + 5x$^9$ -6x$^8$ + 7x$^7$ -8x$^6$ + 9x$^5$ -10x$^4$ + 11x$^3$ -12x$^2$ + 13x -14}
+  \end{center}
+\end{figure}
 
 \end{document}

@@ -99,7 +99,7 @@ endfunction
 # Extract values from CLI
 function [polynomial, delta, output, width, heigth, max] = arguments(args)
   # Default values
-  delta = 6e-8;
+  delta = 1e-8;
   output = strcat(pwd(), "/outputs/output.txt");
   width = heigth = 3;
   max = 25;
@@ -111,7 +111,9 @@ function [polynomial, delta, output, width, heigth, max] = arguments(args)
       string = args{++i}; polynomial = [];
       if length(string) > 1 && (string(1) == '-' || string(1) == '+') && all(isstrprop(string(2:length(string)), "digit"))
         string = string;
-      elseif !all(isstrprop(args{i + 1}, "digit"))
+      elseif all(isstrprop(string, "digit"))
+        string = string;
+      else
         printf("Invalid input format. Was expecting a number after '-p' parameter. Terminating execution.");
         exit;
       endif
@@ -122,10 +124,10 @@ function [polynomial, delta, output, width, heigth, max] = arguments(args)
         string = args{i};
         if length(string) > 1 && (string(1) == '-' || string(1) == '+') && all(isstrprop(string(2:length(string)), "digit"))
           polynomial = [polynomial, str2num(string)];
-          i++;
+          i++; continue;
         elseif all(isstrprop(string, "digit"))
           polynomial = [polynomial, str2num(string)];
-          i++;
+          i++; continue;
         else
           break
         endif
@@ -147,7 +149,7 @@ function [polynomial, delta, output, width, heigth, max] = arguments(args)
       i++; max = str2num(args{i}); i++;
       continue;
     elseif strcmp("-o", args{i}) && (i + 1 <= length(args))
-      i++; output = strcat(pwd(), strcat("/outputs/", args{i})); i++;
+      i++; output = strcat(pwd(), strcat("/", args{i})); i++;
       continue;
     elseif strcmp("-w", args{i}) && (i + 1 <= length(args))
       if !all(isstrprop(args{i + 1}, "digit"))
